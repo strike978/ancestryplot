@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 import plotly.express as px
+import xlsxwriter
 import io
 from pandas.api.types import (
     is_categorical_dtype,
