@@ -4,6 +4,7 @@ from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 import plotly.express as px
 # import xlsxwriter
 # import io
+import kaleido
 from pandas.api.types import (
     is_categorical_dtype,
     is_datetime64_any_dtype,
