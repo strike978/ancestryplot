@@ -108,10 +108,10 @@ if model_name != '':
 
     col1, col2, col3 = st.columns([3, 9, 4])
     with col1:
-        if st.button("🗃 Show Data"):
+        if st.button("🗃 Plot Tables"):
             show_data = True
     with col2:
-        if st.button("🗺 Show Map"):
+        if st.button("🗺 Plot Map"):
             show_map = True
     with col3:
         st.download_button(label="📥 Export to CSV", data=df.loc[:, ['Population', 'Region', model_name]].to_csv(
