@@ -48,7 +48,7 @@ st.write("# 📈ancestryplot")
 st.markdown(
     """
 Create models based on genetic data from mesolithic and neolithic populations. With our easy-to-use interface, you can quickly and easily plot maps and data tables to visualize ancestry information for modern
-populations. 
+populations.
 Start creating your own ancestry models today!
 """
 )
@@ -100,64 +100,37 @@ if model_name != '':
     # Sorting the dataframe by the column `model_name` in descending order.
     df = df.sort_values(model_name, ascending=False)
 
-    with st.expander("🗃 Data", expanded=True):
-        # Creating a download button for the dataframe.
-        col1, _, col3 = st.columns([3, 6, 3])
-        with col1:
-            if st.button("🗃 Show Data"):
-                with col3:
-                    st.download_button(label="📥 Export to CSV", data=df.loc[:, ['Population', 'Region', model_name]].to_csv(
-                        index=False), file_name=f'{model_name}.csv', mime='text/csv')
-                show_data = True
+    col1, col2, col3 = st.columns([7, 7, 4])
+    with col1:
+        if st.button("🗃 Show Data"):
+            show_data = True
+    with col2:
+        if st.button("🗺 Show Map"):
+            show_map = True
+    with col3:
+        st.download_button(label="📥 Export to CSV", data=df.loc[:, ['Population', 'Region', model_name]].to_csv(
+                index=False), file_name=f'{model_name}.csv', mime='text/csv')
 
-            # with col3:
-            #     pass
-                # buffer = io.BytesIO()
-                # with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-                #     df.loc[:, ['Population', 'Region', model_name]
-                #            ].to_excel(writer, index=False)
-                #     writer.save()
-                # st.download_button(
-                #     label="📥 Export to Excel",
-                #     data=buffer,
-                #     file_name=f"{model_name}.xlsx",
-                #     mime="application/vnd.ms-excel"
-                # )
-
-       # Creating a table with the data.
-        if show_data:
-            gb = GridOptionsBuilder.from_dataframe(
-                df.loc[:, ['Population', 'Region', model_name]])
-            gb.configure_pagination(
-                paginationAutoPageSize=False, paginationPageSize=15)
-            gridOptions = gb.build()
-            AgGrid(df.loc[:, ['Population', 'Region', model_name]],
-                   fit_columns_on_grid_load=True, gridOptions=gridOptions)
+    if show_data:
+        # Creating a table with the data.
+        gb = GridOptionsBuilder.from_dataframe(
+            df.loc[:, ['Population', 'Region', model_name]])
+        gb.configure_pagination(
+            paginationAutoPageSize=False, paginationPageSize=15)
+        gridOptions = gb.build()
+        AgGrid(df.loc[:, ['Population', 'Region', model_name]],
+               fit_columns_on_grid_load=True, gridOptions=gridOptions)
 
     # Creating a map with the data.
-    with st.expander("🗺 Map", expanded=True):
+    if show_map:
      # Checking if the user selected more than one column.
         if len(l) < 2:
             st.write("Please select more than one column")
         else:
-            col1, _, col3 = st.columns([3, 6, 3])
-            with col1:
-              # Creating a map with the data.
-                if st.button("🗺 Show Map"):
-                    with st.spinner('Loading...'):
-                        fig = px.scatter_mapbox(df, lat='Latitude', lon='Longitude',
-                                                zoom=1, hover_name='Population', color=model_name, size=model_name,
-                                                mapbox_style='open-street-map', color_continuous_scale="bluered", opacity=1, size_max=15)
-                        fig.update_layout(mapbox_style="open-street-map")
-                        # with col3:
-                        #     # Creating a download button for the image.
-                        #     btn = st.download_button(
-                        #         label="📥 Download Map",
-                        #         data=fig.to_image(
-                        #             format="png", engine="kaleido"),
-                        #         file_name=f"{model_name}.png",
-                        #         mime="image/png"
-                        #     )
-                        show_map = True
-            if show_map:
-                st.plotly_chart(fig)
+         # Showing a spinner while the map is loading.
+            with st.spinner('Loading...'):
+                fig = px.scatter_mapbox(df, lat='Latitude', lon='Longitude',
+                                        zoom=1, hover_name='Population', color=model_name, size=model_name,
+                                        mapbox_style='open-street-map', color_continuous_scale="bluered", opacity=1, size_max=15)
+                fig.update_layout(mapbox_style="open-street-map")
+            st.plotly_chart(fig)
