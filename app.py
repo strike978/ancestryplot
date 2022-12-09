@@ -126,7 +126,7 @@ with st.expander("🌍 Map"):
  # Creating a download button for the image.
     btn = st.download_button(
         label="📥 Download Map",
-        data=fig.to_image(format="png", engine="orca"),
+        data=fig.to_image(format="png"),
         file_name=f"{model_name}.png",
         mime="image/png"
     )
