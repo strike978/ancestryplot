@@ -96,7 +96,7 @@ model_name = st.text_input("Model", placeholder="Enter a model name", value='')
 if model_name != '':
     # Creating a new column in the dataframe `df` with the name `model_name` and the values of the column
     # are the sum of the values of the columns in the list `l`.
-    df[model_name] = df[l].sum(axis=1, numeric_only=True)
+    df[model_name] = df[l].sum(axis=1)
     # Sorting the dataframe by the column `model_name` in descending order.
     df = df.sort_values(model_name, ascending=False)
 
