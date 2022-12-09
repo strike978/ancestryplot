@@ -2,8 +2,8 @@ import pandas as pd
 import streamlit as st
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 import plotly.express as px
-import xlsxwriter
-import io
+# import xlsxwriter
+# import io
 from pandas.api.types import (
     is_categorical_dtype,
     is_datetime64_any_dtype,
@@ -93,19 +93,20 @@ with st.expander("🗃 Data"):
             index=False), file_name=f'{model_name}.csv', mime='text/csv')
 
     with col3:
-        buffer = io.BytesIO()
-        with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-            df.loc[:, ['Population', 'Region', model_name]
-                   ].to_excel(writer, index=False)
-            writer.save()
-        st.download_button(
-            label="📥 Download Excel",
-            data=buffer,
-            file_name=f"{model_name}.xlsx",
-            mime="application/vnd.ms-excel"
-        )
+        pass
+        # buffer = io.BytesIO()
+        # with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+        #     df.loc[:, ['Population', 'Region', model_name]
+        #            ].to_excel(writer, index=False)
+        #     writer.save()
+        # st.download_button(
+        #     label="📥 Download Excel",
+        #     data=buffer,
+        #     file_name=f"{model_name}.xlsx",
+        #     mime="application/vnd.ms-excel"
+        # )
 
-# Creating a grid with the data.
+        # Creating a grid with the data.
     gb = GridOptionsBuilder.from_dataframe(
         df.loc[:, ['Population', 'Region', model_name]])
     gb.configure_pagination(
@@ -123,7 +124,7 @@ with st.expander("🌍 Map"):
 
  # Creating a download button for the image.
     btn = st.download_button(
-        label="📥 Download image",
+        label="📥 Download Map",
         data=fig.to_image(format="png"),
         file_name=f"{model_name}.png",
         mime="image/png"
