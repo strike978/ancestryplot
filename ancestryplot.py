@@ -135,7 +135,7 @@ if model_name != '':
                    fit_columns_on_grid_load=True, gridOptions=gridOptions)
 
     # Creating a map with the data.
-    with st.expander("🗺 Map", expanded=True):
+    with st.expander("🌍 Map", expanded=True):
      # Checking if the user selected more than one column.
         if len(l) < 2:
             st.write("Please select more than one column")
@@ -143,7 +143,7 @@ if model_name != '':
             col1, _, col3 = st.columns([3, 6, 3])
             with col1:
               # Creating a map with the data.
-                if st.button("🗺 Show Map"):
+                if st.button("🌍 Show Map"):
                     with st.spinner('Loading...'):
                         fig = px.scatter_mapbox(df, lat='Latitude', lon='Longitude',
                                                 zoom=1, hover_name='Population', color=model_name, size=model_name,
