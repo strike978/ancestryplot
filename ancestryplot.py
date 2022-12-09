@@ -135,7 +135,7 @@ if model_name != '':
                    fit_columns_on_grid_load=True, gridOptions=gridOptions)
 
     # Creating a map with the data.
-    with st.expander("🌍 Map", expanded=True):
+    with st.expander("🗺 Map", expanded=True):
      # Checking if the user selected more than one column.
         if len(l) < 2:
             st.write("Please select more than one column")
@@ -144,18 +144,20 @@ if model_name != '':
             with col1:
               # Creating a map with the data.
                 if st.button("🗺 Show Map"):
-                    fig = px.scatter_mapbox(df, lat='Latitude', lon='Longitude',
-                                            zoom=1, hover_name='Population', color=model_name, size=model_name,
-                                            mapbox_style='open-street-map', color_continuous_scale="bluered", opacity=1, size_max=15)
-                    fig.update_layout(mapbox_style="open-street-map")
-                    with col3:
-                        # Creating a download button for the image.
-                        btn = st.download_button(
-                            label="📥 Download Map",
-                            data=fig.to_image(format="png", engine="kaleido"),
-                            file_name=f"{model_name}.png",
-                            mime="image/png"
-                        )
-                    show_map = True
+                    with st.spinner('Loading...'):
+                        fig = px.scatter_mapbox(df, lat='Latitude', lon='Longitude',
+                                                zoom=1, hover_name='Population', color=model_name, size=model_name,
+                                                mapbox_style='open-street-map', color_continuous_scale="bluered", opacity=1, size_max=15)
+                        fig.update_layout(mapbox_style="open-street-map")
+                        with col3:
+                            # Creating a download button for the image.
+                            btn = st.download_button(
+                                label="📥 Download Map",
+                                data=fig.to_image(
+                                    format="png", engine="kaleido"),
+                                file_name=f"{model_name}.png",
+                                mime="image/png"
+                            )
+                        show_map = True
             if show_map:
                 st.plotly_chart(fig)
