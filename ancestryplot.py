@@ -4,7 +4,7 @@ from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 import plotly.express as px
 # import xlsxwriter
 # import io
-import kaleido
+# import kaleido
 from pandas.api.types import (
     is_categorical_dtype,
     is_datetime64_any_dtype,
@@ -149,15 +149,15 @@ if model_name != '':
                                                 zoom=1, hover_name='Population', color=model_name, size=model_name,
                                                 mapbox_style='open-street-map', color_continuous_scale="bluered", opacity=1, size_max=15)
                         fig.update_layout(mapbox_style="open-street-map")
-                        with col3:
-                            # Creating a download button for the image.
-                            btn = st.download_button(
-                                label="📥 Download Map",
-                                data=fig.to_image(
-                                    format="png", engine="kaleido"),
-                                file_name=f"{model_name}.png",
-                                mime="image/png"
-                            )
+                        # with col3:
+                        #     # Creating a download button for the image.
+                        #     btn = st.download_button(
+                        #         label="📥 Download Map",
+                        #         data=fig.to_image(
+                        #             format="png", engine="kaleido"),
+                        #         file_name=f"{model_name}.png",
+                        #         mime="image/png"
+                        #     )
                         show_map = True
             if show_map:
                 st.plotly_chart(fig)
