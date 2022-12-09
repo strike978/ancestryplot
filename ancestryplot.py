@@ -64,8 +64,8 @@ with modification_container:
     l = []
     for i, column in enumerate(to_filter_columns):
         df = df[df[column] != 0]
-        left, right = st.columns((1, 20))
-        left.write("↳")
+        left, right = st.columns((1, 200))
+        # left.write("↳")
         # Treat columns with < 10 unique values as categorical
         if is_numeric_dtype(df[column]):
             _min = float(df[column].min())
