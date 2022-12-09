@@ -88,6 +88,12 @@ with modification_container:
             df = df[df[column].isin(user_cat_input)]
         l.append(column)
 
+
+# Showing the number of populations after filtering.
+st.info(f"Found **{len(df)}** populations after filtering.",
+        icon="🌐")
+
+
 # Creating a text input with the label "Model" and the placeholder "Enter a model name".
 model_name = st.text_input("Model", placeholder="Enter a model name", value='')
 
@@ -100,7 +106,7 @@ if model_name != '':
     # Sorting the dataframe by the column `model_name` in descending order.
     df = df.sort_values(model_name, ascending=False)
 
-    col1, col2, col3 = st.columns([7, 7, 4])
+    col1, col2, col3 = st.columns([3, 9, 4])
     with col1:
         if st.button("🗃 Show Data"):
             show_data = True
@@ -109,7 +115,7 @@ if model_name != '':
             show_map = True
     with col3:
         st.download_button(label="📥 Export to CSV", data=df.loc[:, ['Population', 'Region', model_name]].to_csv(
-                index=False), file_name=f'{model_name}.csv', mime='text/csv')
+            index=False), file_name=f'{model_name}.csv', mime='text/csv')
 
     if show_data:
         # Creating a table with the data.
