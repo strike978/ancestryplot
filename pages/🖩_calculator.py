@@ -8,6 +8,7 @@ import streamlit as st
 import os
 from cvxpy.reductions.solvers.defines import installed_solvers
 from cvxpy import GLPK
+import cvxopt
 # from gurobipy import *
 
 
