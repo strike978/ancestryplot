@@ -166,7 +166,7 @@ def main(coords, file_names, penalty, nonzeros):
 
     prob = cp.Problem(cp.Minimize(cost), constraints)
     # prob.solve(solver=GLPK, verbose=True)
-    prob.solve(solver=GLPK, verbose=True)
+    prob.solve(verbose=True)
     # prob.solve(verbose=True)
     dindiv = defaultdict(int)
     dpop = defaultdict(int)
