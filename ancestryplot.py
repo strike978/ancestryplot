@@ -47,7 +47,7 @@ Start creating your own ancestry models today!
 # def load_data():
 data = st.selectbox(
     'Select Period', ('Upper Paleolithic', 'Mesolithic Neolithic'))
-if data == 'Mesolithic Neolithic':
+if data == 'Upper Paleolithic':
     df = pd.read_csv('up.csv')
 else:
     df = pd.read_csv('data.csv')
