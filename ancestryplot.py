@@ -37,8 +37,8 @@ st.write("# 📈ancestryplot")
 
 st.markdown(
     """
-Create models based on genetic data from ancient populations. With our easy-to-use interface, you can quickly and easily plot maps and data tables to visualize ancestry information for modern
-populations.
+Create models based on genetic data from ancient populations. With our easy-to-use interface, you can quickly and easily plot maps and data tables to visualize ancestry information for 
+populations around the world.
 Start creating your own ancestry models today!
 """
 )
