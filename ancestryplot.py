@@ -22,25 +22,15 @@ st.set_page_config(
 show_data = False
 show_map = False
 
-
-@st.cache(allow_output_mutation=True)
-def load_data():
-    # Loading the data from the csv file.
-    df = pd.read_csv('data.csv')
-    return (df)
-
-
 # Splitting the string in the column `Population` by the character `:` and taking the last element of
 # the resulting list.
+
+
 @st.cache()
 def convert_Population_column(df):
     df['Population'] = df['Population'].str.split(':').str[-1]
     return (df)
 
-
-# Loading the data from the csv file and converting the column `Population` to a string.
-df = load_data()
-convert_Population_column(df)
 
 # Creating a title and a description for the page.
 st.write("# 📈ancestryplot")
@@ -52,6 +42,17 @@ populations.
 Start creating your own ancestry models today!
 """
 )
+
+
+# def load_data():
+data = st.selectbox(
+    'Select Model', ('Mesolithic Neolithic', 'Upper Paleolithic'))
+if data == 'Mesolithic Neolithic':
+    df = pd.read_csv('data.csv')
+else:
+    df = pd.read_csv('up.csv')
+
+convert_Population_column(df)
 
 modification_container = st.container()
 
