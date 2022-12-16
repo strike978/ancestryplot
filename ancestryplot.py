@@ -22,16 +22,6 @@ st.set_page_config(
 show_data = False
 show_map = False
 
-# Splitting the string in the column `Population` by the character `:` and taking the last element of
-# the resulting list.
-
-
-@st.cache()
-def convert_Population_column(df):
-    df['Population'] = df['Population'].str.split(':').str[-1]
-    return (df)
-
-
 # Creating a title and a description for the page.
 st.write("# 📈ancestryplot")
 
@@ -43,16 +33,16 @@ Start creating your own ancestry models today!
 """
 )
 
-
-# def load_data():
+# Creating a dropdown menu with the options "Upper Paleolithic" and "Mesolithic Neolithic".
 data = st.selectbox(
     'Select Period', ('Upper Paleolithic', 'Mesolithic Neolithic'))
 if data == 'Upper Paleolithic':
     df = pd.read_csv('up.csv')
+    df['Population'] = df['Population'].str.split(':').str[-1]
 else:
     df = pd.read_csv('data.csv')
+    df['Population'] = df['Population'].str.split(':').str[-1]
 
-convert_Population_column(df)
 
 modification_container = st.container()
 
@@ -66,7 +56,6 @@ with modification_container:
     for i, column in enumerate(to_filter_columns):
         df = df[df[column] != 0]
         left, right = st.columns((1, 200))
-        # left.write("↳")
         # Treat columns with < 10 unique values as categorical
         if is_numeric_dtype(df[column]):
             _min = float(df[column].min())
@@ -107,6 +96,7 @@ if model_name != '':
     # Sorting the dataframe by the column `model_name` in descending order.
     df = df.sort_values(model_name, ascending=False)
 
+# Creating a column with the buttons "Plot Tables" and "Plot Map" and the download button.
     col1, col2, col3 = st.columns([3, 9, 4])
     with col1:
         if st.button("🗃 Plot Tables"):
